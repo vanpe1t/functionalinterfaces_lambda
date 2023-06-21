@@ -18,6 +18,10 @@ public class Main {
         System.out.println(predicate.test(2));
         System.out.println(predicate.test(-1));
 
+        Predicate<Integer> predicate1 = (inInt) -> (inInt >= 0);
+        System.out.println("Pred lambds " + predicate1.test(3));
+
+
         Consumer<String> stringConsumer = new Consumer<String>() {
             @Override
             public void accept(String s) {
@@ -28,6 +32,11 @@ public class Main {
         };
         stringConsumer.accept("Ivan");
 
+        Consumer<String> stringConsumer1 = (strName) -> {
+            System.out.println("Hello " + strName);
+        };
+        stringConsumer1.accept("Petr");
+
         Function<Double, Long> doubleLongFunction = new Function<Double, Long>() {
             @Override
             public Long apply(Double aDouble) {
@@ -36,6 +45,9 @@ public class Main {
         };
 
         System.out.println(doubleLongFunction.apply(12.5));
+
+        Function<Double, Long> doubleLongFunction1 = (lDouble) -> (lDouble.longValue());
+        System.out.println(doubleLongFunction1.apply(13.5));
 
         Supplier<Integer> integerSupplier =  new Supplier<Integer>() {
             @Override
@@ -70,7 +82,7 @@ public class Main {
                                                         Function<? super T, ? extends U> ifTrue,
                                                         Function<? super T, ? extends U> ifFalse) {
         return (res) -> {
-            U result = condition.test(res) ? ifFalse.apply(res) : ifTrue.apply(res);
+            U result = condition.test(res) ? ifTrue.apply(res) : ifFalse.apply(res);
             return result;
         };
     }
